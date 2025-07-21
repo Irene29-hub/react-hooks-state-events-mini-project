@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 
 function NewTaskForm({ categories, onTaskFormSubmit }) {
+  // Filter out "All" category if it exists in the categories array
+  const filteredCategories = categories.filter(category => category !== "All");
+  const initialCategory = filteredCategories.length > 0 ? filteredCategories[0] : "";
+  
   const [formData, setFormData] = useState({
     text: "",
-    category: categories[0]
+    category: initialCategory
   });
 
   function handleChange(e) {
@@ -18,7 +22,7 @@ function NewTaskForm({ categories, onTaskFormSubmit }) {
     onTaskFormSubmit(formData);
     setFormData({
       text: "",
-      category: categories[0]
+      category: initialCategory
     });
   }
 
@@ -40,7 +44,7 @@ function NewTaskForm({ categories, onTaskFormSubmit }) {
           value={formData.category} 
           onChange={handleChange}
         >
-          {categories.map(category => (
+          {categories.filter(category => category !== "All").map(category => (
             <option key={category} value={category}>
               {category}
             </option>

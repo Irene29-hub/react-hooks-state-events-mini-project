@@ -16,7 +16,9 @@ function App() {
   }
 
   function handleDeleteTask(taskToDelete) {
-    const updatedTasks = tasks.filter(task => task !== taskToDelete);
+    const updatedTasks = tasks.filter(task => 
+      task.text !== taskToDelete.text || task.category !== taskToDelete.category
+    );
     setTasks(updatedTasks);
   }
 
@@ -37,7 +39,7 @@ function App() {
         onCategoryChange={handleCategoryChange} 
       />
       <NewTaskForm 
-        categories={CATEGORIES.filter(category => category !== "All")} 
+        categories={CATEGORIES} 
         onTaskFormSubmit={handleTaskFormSubmit} 
       />
       <TaskList 
